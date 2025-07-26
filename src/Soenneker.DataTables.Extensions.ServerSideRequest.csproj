@@ -8,12 +8,12 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <Description>A collection of helpful DataTablesServerSideRequest extension methods</Description>
+        <Description>A collection of helpful DataTableServerSideRequest extension methods</Description>
         <Version Condition="'$(BUILD_VERSION)' == ''">3.0.0</Version>
         <Version Condition="'$(BUILD_VERSION)' != ''">$(BUILD_VERSION)</Version>
         <AssemblyName>Soenneker.DataTables.Extensions.ServerSideRequest</AssemblyName>
         <PackageId>Soenneker.DataTables.Extensions.ServerSideRequest</PackageId>
-        <PackageTags>datatables extensions serversiderequest js datatablesjs server side request dto datatablesserversiderequestsextension extension csharp dotnet c# .net</PackageTags>
+        <PackageTags>datatables extensions serversiderequest js datatablesjs server side request dto datatableserversiderequestsextension extension csharp dotnet c# .net</PackageTags>
         <Copyright>Copyright © 2025 Jake Soenneker</Copyright>
         <Authors>Jake Soenneker</Authors>
         <Company>https://soenneker.com</Company>
@@ -42,7 +42,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Soenneker.DataTables.Dtos.ServerSideRequest" Version="3.0.1" />
+      <PackageReference Include="Soenneker.DataTables.Dtos.ServerSideRequest" Version="3.0.2" />
       <PackageReference Include="Soenneker.Dtos.RequestDataOptions" Version="3.0.31" />
       <PackageReference Include="Soenneker.Extensions.String" Version="3.0.539" />
     </ItemGroup>
