@@ -1,10 +1,13 @@
-﻿using Soenneker.DataTables.Dtos.ServerSideRequest;
+﻿using System;
+using Soenneker.DataTables.Dtos.ServerSideRequest;
 using Soenneker.Dtos.Options.OrderBy;
 using Soenneker.Dtos.RequestDataOptions;
 using Soenneker.Enums.SortDirections;
 using Soenneker.Extensions.String;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace Soenneker.DataTables.Extensions.ServerSideRequest;
@@ -60,27 +63,34 @@ public static class DataTableServerSideRequestsExtension
     /// </code>
     /// </example>
     [Pure]
-    public static RequestDataOptions ToRequestDataOptions(this DataTableServerSideRequest request)
+    public static RequestDataOptions ToRequestDataOptions<T>(this DataTableServerSideRequest request)
     {
+        HashSet<string> allowed = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                                           .Select(p => p.Name)
+                                           .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        // Normalise the search term first
+        string? search = request.Search?.Value;
+
+        if (search.IsNullOrWhiteSpace())
+            search = null;
+
         var options = new RequestDataOptions
         {
-            Skip = request.Start,
-            Take = request.Length,
-            Search = request.Search?.Value
+            Skip = Math.Max(request.Start, 0),
+            Take = request.Length > 0 ? request.Length : 0,
+            Search = search
         };
 
-        // Populate SearchFields
-        if (request.Columns is {Count: > 0})
+        if (search is not null && request.Columns is {Count: > 0})
         {
             List<string>? searchFields = null;
 
-            for (var i = 0; i < request.Columns.Count; i++)
+            foreach (DataTableColumnRequest col in request.Columns)
             {
-                DataTableColumnRequest col = request.Columns[i];
-
-                if (col.Searchable && col.Data.HasContent())
+                if (col.Searchable && col.Data.HasContent() && allowed.Contains(col.Data))
                 {
-                    searchFields ??= new List<string>(capacity: request.Columns.Count);
+                    searchFields ??= new List<string>(4);
                     searchFields.Add(col.Data);
                 }
             }
@@ -88,29 +98,25 @@ public static class DataTableServerSideRequestsExtension
             options.SearchFields = searchFields;
         }
 
-        // Populate OrderBy
         if (request is {Order.Count: > 0, Columns.Count: > 0})
         {
             List<OrderByOption>? orderBy = null;
 
-            for (var i = 0; i < request.Order.Count; i++)
+            foreach (DataTableOrderRequest ord in request.Order)
             {
-                DataTableOrderRequest order = request.Order[i];
-
-                if (order.Column < 0 || order.Column >= request.Columns.Count) 
+                if (ord.Column < 0 || ord.Column >= request.Columns.Count)
                     continue;
 
-                DataTableColumnRequest column = request.Columns[order.Column];
+                DataTableColumnRequest column = request.Columns[ord.Column];
+                if (!column.Data.HasContent() || !allowed.Contains(column.Data))
+                    continue;
 
-                if (column.Data.HasContent())
+                orderBy ??= new List<OrderByOption>(4);
+                orderBy.Add(new OrderByOption
                 {
-                    orderBy ??= new List<OrderByOption>(capacity: request.Order.Count);
-                    orderBy.Add(new OrderByOption
-                    {
-                        Field = column.Data,
-                        Direction = ParseDirection(order.Dir)
-                    });
-                }
+                    Field = column.Data,
+                    Direction = ParseDirection(ord.Dir)
+                });
             }
 
             options.OrderBy = orderBy;
@@ -120,8 +126,6 @@ public static class DataTableServerSideRequestsExtension
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static SortDirection ParseDirection(string? dir)
-    {
-        return dir is not null && dir.EqualsIgnoreCase("desc") ? SortDirection.Desc : SortDirection.Asc;
-    }
+    private static SortDirection ParseDirection(string? dir) =>
+        dir is not null && dir.EqualsIgnoreCase("desc") ? SortDirection.Desc : SortDirection.Asc;
 }
