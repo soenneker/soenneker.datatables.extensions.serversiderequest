@@ -108,6 +108,7 @@ public static class DataTableServerSideRequestsExtension
                     continue;
 
                 DataTableColumnRequest column = request.Columns[ord.Column];
+
                 if (!column.Data.HasContent() || !allowed.Contains(column.Data))
                     continue;
 
@@ -119,7 +120,8 @@ public static class DataTableServerSideRequestsExtension
                 });
             }
 
-            options.OrderBy = orderBy;
+            if (orderBy?.Count > 0)
+                options.OrderBy = orderBy;
         }
 
         return options;
