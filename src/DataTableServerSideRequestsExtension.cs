@@ -109,7 +109,7 @@ public static class DataTableServerSideRequestsExtension
 
                 DataTableColumnRequest column = request.Columns[ord.Column];
 
-                if (!column.Data.HasContent() || !allowed.Contains(column.Data))
+                if (!column.Orderable || !column.Data.HasContent() || !allowed.Contains(column.Data))
                     continue;
 
                 orderBy ??= new List<OrderByOption>(4);
