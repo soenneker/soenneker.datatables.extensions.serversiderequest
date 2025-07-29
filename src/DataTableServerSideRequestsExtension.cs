@@ -1,4 +1,5 @@
 ﻿using Soenneker.DataTables.Dtos.ServerSideRequest;
+using Soenneker.Dtos.Filters.ExactMatch;
 using Soenneker.Dtos.Options.OrderBy;
 using Soenneker.Dtos.RequestDataOptions;
 using Soenneker.Enums.SortDirections;
@@ -48,6 +49,31 @@ public static class DataTableServerSideRequestsExtension
             }
 
             options.SearchFields = searchFields;
+        }
+
+        if (request.Columns is { Count: > 0 })
+        {
+            List<ExactMatchFilter>? filters = null;
+
+            foreach (DataTableColumnRequest col in request.Columns)
+            {
+                string? term = EmptyToNull(col.Search?.Value);
+
+                if (term == null) 
+                    continue;   // nothing typed in this column box
+
+                if (!allowed.Contains(col.Data))
+                    continue;   // column not whitelisted
+
+                filters ??= new List<ExactMatchFilter>(4);
+                filters.Add(new ExactMatchFilter
+                {
+                    Field = map[col.Data],        // translate via MapTo
+                    Value = term
+                });
+            }
+
+            options.Filters = filters;
         }
 
         // ---------- Sorting ----------
