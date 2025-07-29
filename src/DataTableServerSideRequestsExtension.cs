@@ -38,14 +38,14 @@ public static class DataTableServerSideRequestsExtension
             {
                 DataTableColumnRequest col = request.Columns[i];
 
-                if (!col.Searchable || string.IsNullOrWhiteSpace(col.Data))
+                if (!col.Searchable || col.Data.IsNullOrWhiteSpace())
                     continue;
 
                 if (!allowed.Contains(col.Data))
                     continue;
 
                 searchFields ??= new List<string>(4);
-                searchFields.Add(map[col.Data]); // translate via MapTo
+                searchFields.Add(map[col.Data]);
             }
 
             options.SearchFields = searchFields;
@@ -68,7 +68,7 @@ public static class DataTableServerSideRequestsExtension
                 filters ??= new List<ExactMatchFilter>(4);
                 filters.Add(new ExactMatchFilter
                 {
-                    Field = map[col.Data],        // translate via MapTo
+                    Field = map[col.Data],  
                     Value = term
                 });
             }
@@ -99,7 +99,7 @@ public static class DataTableServerSideRequestsExtension
                 orderBy ??= new List<OrderByOption>(4);
                 orderBy.Add(new OrderByOption
                 {
-                    Field = map[col.Data], // translate via MapTo
+                    Field = map[col.Data],
                     Direction = ParseDirection(ord.Dir)
                 });
             }
