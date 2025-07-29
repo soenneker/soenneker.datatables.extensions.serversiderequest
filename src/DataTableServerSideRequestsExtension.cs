@@ -24,8 +24,8 @@ public static class DataTableServerSideRequestsExtension
 
         var options = new RequestDataOptions
         {
-            Skip = Math.Max(request.Start, 0),
-            Take = request.Length > 0 ? request.Length : 0,
+            PageSize = request.Length > 0 ? request.Length : 50,
+            ContinuationToken = request.ContinuationToken,
             Search = EmptyToNull(request.Search?.Value)
         };
 
