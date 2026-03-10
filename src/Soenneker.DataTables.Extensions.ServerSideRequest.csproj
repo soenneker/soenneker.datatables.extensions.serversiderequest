@@ -42,7 +42,7 @@
 
     <ItemGroup>
       <PackageReference Include="Soenneker.Attributes.MapTo" Version="4.0.11" />
-      <PackageReference Include="Soenneker.DataTables.Dtos.ServerSideRequest" Version="4.0.10" />
+      <PackageReference Include="Soenneker.DataTables.Dtos.ServerSideRequest" Version="4.0.13" />
       <PackageReference Include="Soenneker.Dtos.RequestDataOptions" Version="4.0.97" />
       <PackageReference Include="Soenneker.Extensions.String" Version="4.0.622" />
     </ItemGroup>
