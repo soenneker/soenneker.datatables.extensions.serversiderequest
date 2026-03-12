@@ -15,7 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Soenneker.DataTables.Extensions.ServerSideRequest.csproj" />
+        <ProjectReference Include="..\..\src\Soenneker.DataTables.Extensions.ServerSideRequest\Soenneker.DataTables.Extensions.ServerSideRequest.csproj" />
     </ItemGroup>
 
     <ItemGroup>
