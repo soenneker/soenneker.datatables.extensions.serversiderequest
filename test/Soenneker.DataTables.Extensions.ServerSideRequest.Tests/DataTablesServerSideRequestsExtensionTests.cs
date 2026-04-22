@@ -1,11 +1,10 @@
-﻿using Soenneker.Tests.Unit;
-using Xunit;
+using Soenneker.Tests.Unit;
 
 namespace Soenneker.DataTables.Extensions.ServerSideRequest.Tests;
 
 public sealed class DataTablesServerSideRequestsExtensionTests : UnitTest
 {
-    [Fact]
+    [Test]
     public void Default()
     {
 
