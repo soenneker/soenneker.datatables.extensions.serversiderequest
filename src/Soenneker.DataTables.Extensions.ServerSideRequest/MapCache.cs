@@ -6,8 +6,15 @@ using Soenneker.Attributes.MapTo;
 
 namespace Soenneker.DataTables.Extensions.ServerSideRequest;
 
+/// <summary>
+/// Represents the map cache.
+/// </summary>
+/// <typeparam name="T">The T type.</typeparam>
 public static class MapCache<T>
 {
+    /// <summary>
+    /// The external to internal.
+    /// </summary>
     public static readonly Dictionary<string, string> ExternalToInternal;
 
     static MapCache()
