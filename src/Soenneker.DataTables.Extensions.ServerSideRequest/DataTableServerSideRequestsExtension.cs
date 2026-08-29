@@ -17,11 +17,11 @@ namespace Soenneker.DataTables.Extensions.ServerSideRequest;
 public static class DataTableServerSideRequestsExtension
 {
     /// <summary>
-    /// Executes the to request data options operation.
+    /// Converts to request Data Options.
     /// </summary>
-    /// <typeparam name="T">The T type.</typeparam>
-    /// <param name="request">The request.</param>
-    /// <returns>The result of the operation.</returns>
+    /// <typeparam name="T">Type of value handled by the data table server side requests.</typeparam>
+    /// <param name="request">request that defines the request to send.</param>
+    /// <returns>The resulting request Data Options.</returns>
     [Pure]
     public static RequestDataOptions ToRequestDataOptions<T>(this DataTableServerSideRequest request)
     {
