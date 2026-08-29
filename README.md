@@ -3,11 +3,33 @@
 [![](https://img.shields.io/nuget/dt/soenneker.datatables.extensions.serversiderequest.svg?style=for-the-badge)](https://www.nuget.org/packages/soenneker.datatables.extensions.serversiderequest/)
 [![](https://img.shields.io/github/actions/workflow/status/soenneker/soenneker.datatables.extensions.serversiderequest/codeql.yml?label=CodeQL&style=for-the-badge)](https://github.com/soenneker/soenneker.datatables.extensions.serversiderequest/actions/workflows/codeql.yml)
 
-# ![](https://user-images.githubusercontent.com/4441470/224455560-91ed3ee7-f510-4041-a8d2-3fc093025112.png) Soenneker.DataTables.Extensions.ServerSideRequest
-### A collection of helpful DataTablesServerSideRequest extension methods
+# Soenneker.DataTables.Extensions.ServerSideRequest
 
-## Installation
+A collection of helpful DataTableServerSideRequest extension methods.
 
-```
+## Install
+
+```bash
 dotnet add package Soenneker.DataTables.Extensions.ServerSideRequest
 ```
+
+## Quick start
+
+```csharp
+using Soenneker.DataTables.Extensions.ServerSideRequest;
+
+DataTableServerSideRequest request = /* obtain from your application */;
+var result = request.ToRequestDataOptions();
+```
+
+Converts to request Data Options.
+
+## What you get
+
+- `DataTableServerSideRequestsExtension` — A collection of helpful DataTableServerSideRequest extension methods.
+
+## API at a glance
+
+| API | What it does | Result / important behavior |
+| --- | --- | --- |
+| `DataTableServerSideRequestsExtension.ToRequestDataOptions(request)` | Converts to request Data Options. | The resulting request Data Options. |
