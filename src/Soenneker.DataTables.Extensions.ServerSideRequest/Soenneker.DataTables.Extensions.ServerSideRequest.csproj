@@ -45,6 +45,8 @@
 
     <ItemGroup>
         <PackageReference Include="Soenneker.Attributes.MapTo" Version="4.0.23" />
+        <PackageReference Include="Soenneker.DataTables.Attributes.Orderable" Version="4.0.21" />
+        <PackageReference Include="Soenneker.DataTables.Attributes.Searchable" Version="4.0.21" />
         <PackageReference Include="Soenneker.DataTables.Dtos.ServerSideRequest" Version="4.0.25" />
         <PackageReference Include="Soenneker.Dtos.RequestDataOptions" Version="4.0.186" />
         <PackageReference Include="Soenneker.Extensions.String" Version="4.0.723" />

@@ -26,11 +26,9 @@ public static class DataTableServerSideRequestsExtension
     public static RequestDataOptions ToRequestDataOptions<T>(this DataTableServerSideRequest request)
     {
         Dictionary<string, string> map = MapCache<T>.ExternalToInternal;
-        var allowed = new HashSet<string>(map.Keys, StringComparer.OrdinalIgnoreCase);
-
         var options = new RequestDataOptions
         {
-            PageSize = request.Length > 0 ? request.Length : 50,
+            PageSize = Math.Clamp(request.Length > 0 ? request.Length : 50, 1, 250),
             ContinuationToken = request.ContinuationToken,
             Search = EmptyToNull(request.Search?.Value)
         };
@@ -47,7 +45,7 @@ public static class DataTableServerSideRequestsExtension
                 if (!col.Searchable || col.Data.IsNullOrWhiteSpace())
                     continue;
 
-                if (!allowed.Contains(col.Data))
+                if (!MapCache<T>.Searchable.Contains(col.Data))
                     continue;
 
                 searchFields ??= new List<string>(4);
@@ -68,7 +66,7 @@ public static class DataTableServerSideRequestsExtension
                 if (term == null) 
                     continue;   // nothing typed in this column box
 
-                if (!allowed.Contains(col.Data))
+                if (!col.Searchable || col.Data.IsNullOrWhiteSpace() || !MapCache<T>.Searchable.Contains(col.Data))
                     continue;   // column not whitelisted
 
                 filters ??= new List<ExactMatchFilter>(4);
@@ -99,14 +97,19 @@ public static class DataTableServerSideRequestsExtension
                 if (!col.Orderable || col.Data.IsNullOrWhiteSpace())
                     continue;
 
-                if (!allowed.Contains(col.Data))
+                if (!MapCache<T>.Orderable.Contains(col.Data))
+                    continue;
+
+                SortDirection? direction = ParseDirection(ord.Dir);
+
+                if (direction is null)
                     continue;
 
                 orderBy ??= new List<OrderByOption>(4);
                 orderBy.Add(new OrderByOption
                 {
                     Field = map[col.Data],
-                    Direction = ParseDirection(ord.Dir)
+                    Direction = direction
                 });
             }
 
@@ -121,6 +124,14 @@ public static class DataTableServerSideRequestsExtension
         s.IsNullOrWhiteSpace() ? null : s;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static SortDirection ParseDirection(string? dir) =>
-        dir is not null && dir.EqualsIgnoreCase("desc") ? SortDirection.Desc : SortDirection.Asc;
+    private static SortDirection? ParseDirection(string? dir)
+    {
+        if (dir is not null && dir.EqualsIgnoreCase("asc"))
+            return SortDirection.Asc;
+
+        if (dir is not null && dir.EqualsIgnoreCase("desc"))
+            return SortDirection.Desc;
+
+        return null;
+    }
 }
