@@ -49,6 +49,6 @@
         <PackageReference Include="Soenneker.DataTables.Attributes.Searchable" Version="4.0.26" />
         <PackageReference Include="Soenneker.DataTables.Dtos.ServerSideRequest" Version="4.0.30" />
         <PackageReference Include="Soenneker.Dtos.RequestDataOptions" Version="4.0.212" />
-        <PackageReference Include="Soenneker.Extensions.String" Version="4.0.766" />
+        <PackageReference Include="Soenneker.Extensions.String" Version="4.0.767" />
     </ItemGroup>
 </Project>
