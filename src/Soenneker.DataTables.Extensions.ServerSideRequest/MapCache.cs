@@ -1,4 +1,5 @@
-﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text.Json.Serialization;
@@ -8,7 +9,7 @@ using Soenneker.DataTables.Attributes.Searchable;
 
 namespace Soenneker.DataTables.Extensions.ServerSideRequest;
 
-public static class MapCache<T>
+public static class MapCache<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] T>
 {
     /// <summary>
     /// The external to internal.

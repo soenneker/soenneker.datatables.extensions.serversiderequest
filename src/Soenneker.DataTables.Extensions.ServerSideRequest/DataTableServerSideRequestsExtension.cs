@@ -1,4 +1,5 @@
-﻿using Soenneker.DataTables.Dtos.ServerSideRequest;
+using System.Diagnostics.CodeAnalysis;
+using Soenneker.DataTables.Dtos.ServerSideRequest;
 using Soenneker.Dtos.Filters.ExactMatch;
 using Soenneker.Dtos.Options.OrderBy;
 using Soenneker.Dtos.RequestDataOptions;
@@ -23,7 +24,7 @@ public static class DataTableServerSideRequestsExtension
     /// <param name="request">request that defines the request to send.</param>
     /// <returns>The resulting request Data Options.</returns>
     [Pure]
-    public static RequestDataOptions ToRequestDataOptions<T>(this DataTableServerSideRequest request)
+    public static RequestDataOptions ToRequestDataOptions<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] T>(this DataTableServerSideRequest request)
     {
         Dictionary<string, string> map = MapCache<T>.ExternalToInternal;
         var options = new RequestDataOptions
