@@ -45,11 +45,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Soenneker.Attributes.MapTo" Version="4.0.30" />
-        <PackageReference Include="Soenneker.DataTables.Attributes.Orderable" Version="4.0.27" />
-        <PackageReference Include="Soenneker.DataTables.Attributes.Searchable" Version="4.0.27" />
-        <PackageReference Include="Soenneker.DataTables.Dtos.ServerSideRequest" Version="4.0.31" />
-        <PackageReference Include="Soenneker.Dtos.RequestDataOptions" Version="4.0.221" />
-        <PackageReference Include="Soenneker.Extensions.String" Version="4.0.770" />
+        <PackageReference Include="Soenneker.Attributes.MapTo" Version="4.0.31" />
+        <PackageReference Include="Soenneker.DataTables.Attributes.Orderable" Version="4.0.28" />
+        <PackageReference Include="Soenneker.DataTables.Attributes.Searchable" Version="4.0.28" />
+        <PackageReference Include="Soenneker.DataTables.Dtos.ServerSideRequest" Version="4.0.32" />
+        <PackageReference Include="Soenneker.Dtos.RequestDataOptions" Version="4.0.222" />
+        <PackageReference Include="Soenneker.Extensions.String" Version="4.0.777" />
     </ItemGroup>
 </Project>
