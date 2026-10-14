@@ -46,10 +46,10 @@
 
     <ItemGroup>
         <PackageReference Include="Soenneker.Attributes.MapTo" Version="4.0.37" />
-        <PackageReference Include="Soenneker.DataTables.Attributes.Orderable" Version="4.0.32" />
-        <PackageReference Include="Soenneker.DataTables.Attributes.Searchable" Version="4.0.32" />
-        <PackageReference Include="Soenneker.DataTables.Dtos.ServerSideRequest" Version="4.0.36" />
-        <PackageReference Include="Soenneker.Dtos.RequestDataOptions" Version="4.0.225" />
-        <PackageReference Include="Soenneker.Extensions.String" Version="4.0.781" />
+        <PackageReference Include="Soenneker.DataTables.Attributes.Orderable" Version="4.0.34" />
+        <PackageReference Include="Soenneker.DataTables.Attributes.Searchable" Version="4.0.34" />
+        <PackageReference Include="Soenneker.DataTables.Dtos.ServerSideRequest" Version="4.0.38" />
+        <PackageReference Include="Soenneker.Dtos.RequestDataOptions" Version="4.0.231" />
+        <PackageReference Include="Soenneker.Extensions.String" Version="4.0.790" />
     </ItemGroup>
 </Project>
